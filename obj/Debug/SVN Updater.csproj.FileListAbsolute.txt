@@ -1,0 +1,10 @@
+C:\Users\Bagira\source\repos\SVN Updater\bin\Debug\SVN Updater.exe.config
+C:\Users\Bagira\source\repos\SVN Updater\bin\Debug\SVN Updater.exe
+C:\Users\Bagira\source\repos\SVN Updater\bin\Debug\SVN Updater.pdb
+C:\Users\Bagira\source\repos\SVN Updater\obj\Debug\SVN Updater.csprojAssemblyReference.cache
+C:\Users\Bagira\source\repos\SVN Updater\obj\Debug\SVN_Updater.MainWindow.resources
+C:\Users\Bagira\source\repos\SVN Updater\obj\Debug\SVN_Updater.Properties.Resources.resources
+C:\Users\Bagira\source\repos\SVN Updater\obj\Debug\SVN Updater.csproj.GenerateResource.cache
+C:\Users\Bagira\source\repos\SVN Updater\obj\Debug\SVN Updater.csproj.CoreCompileInputs.cache
+C:\Users\Bagira\source\repos\SVN Updater\obj\Debug\SVN Updater.exe
+C:\Users\Bagira\source\repos\SVN Updater\obj\Debug\SVN Updater.pdb
