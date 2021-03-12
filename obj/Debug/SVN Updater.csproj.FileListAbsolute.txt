@@ -8,3 +8,13 @@ C:\Users\Bagira\source\repos\SVN Updater\obj\Debug\SVN Updater.csproj.GenerateRe
 C:\Users\Bagira\source\repos\SVN Updater\obj\Debug\SVN Updater.csproj.CoreCompileInputs.cache
 C:\Users\Bagira\source\repos\SVN Updater\obj\Debug\SVN Updater.exe
 C:\Users\Bagira\source\repos\SVN Updater\obj\Debug\SVN Updater.pdb
+E:\Dokumenty\Programovanie\GitHub\SVN_Updater\bin\Debug\SVN Updater.exe.config
+E:\Dokumenty\Programovanie\GitHub\SVN_Updater\bin\Debug\SVN Updater.exe
+E:\Dokumenty\Programovanie\GitHub\SVN_Updater\bin\Debug\SVN Updater.pdb
+E:\Dokumenty\Programovanie\GitHub\SVN_Updater\obj\Debug\SVN Updater.csprojAssemblyReference.cache
+E:\Dokumenty\Programovanie\GitHub\SVN_Updater\obj\Debug\SVN_Updater.MainWindow.resources
+E:\Dokumenty\Programovanie\GitHub\SVN_Updater\obj\Debug\SVN_Updater.Properties.Resources.resources
+E:\Dokumenty\Programovanie\GitHub\SVN_Updater\obj\Debug\SVN Updater.csproj.GenerateResource.cache
+E:\Dokumenty\Programovanie\GitHub\SVN_Updater\obj\Debug\SVN Updater.csproj.CoreCompileInputs.cache
+E:\Dokumenty\Programovanie\GitHub\SVN_Updater\obj\Debug\SVN Updater.exe
+E:\Dokumenty\Programovanie\GitHub\SVN_Updater\obj\Debug\SVN Updater.pdb

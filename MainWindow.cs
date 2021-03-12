@@ -10,10 +10,15 @@ public partial class MainWindow : Form
     static string selected = currentDir + "\\selecteditems.txt";
     static string svnfolder = "";
     static bool svnfoldervalid = false;
+<<<<<<< HEAD
     int selfolc = 0;
     int selfoli = 0;
     static string selfol = "";
     string[] fols = new string[20];
+=======
+    static int selfolc = 0;
+    static string selfol = "";
+>>>>>>> c362ddd271a67491c6af3f18ab3538e818cc187e
     public MainWindow()
     {
         Initialize();
@@ -102,6 +107,7 @@ public partial class MainWindow : Form
 
     void AddSelFol()
     {
+<<<<<<< HEAD
         
         StreamWriter addfolder = new StreamWriter( selected );
         for (int i = 0; i < 20; i++)
@@ -109,6 +115,10 @@ public partial class MainWindow : Form
             addfolder.Write(i + " ");
             addfolder.WriteLine(fols[i]);
         }
+=======
+        StreamWriter addfolder = new StreamWriter( selected );
+        addfolder.WriteLine( selfol );
+>>>>>>> c362ddd271a67491c6af3f18ab3538e818cc187e
         addfolder.Close();
     }
 
@@ -140,12 +150,20 @@ public partial class MainWindow : Form
 
     private void FoldersListBox_SelectedIndexChanged( object sender, EventArgs e )
     {
+<<<<<<< HEAD
         if ( FoldersListBox.SelectedItems.Count != 0 )
         { selfol = FoldersListBox.SelectedItem.ToString(); }
         else { selfol = ""; }
         selfolc = FoldersListBox.SelectedItems.Count;
         selfoli = FoldersListBox.SelectedIndex;
         fols[selfoli] = selfol;
+=======
+        string value = FoldersListBox.SelectedItem.ToString();
+        if ( !string.IsNullOrEmpty( value ) )
+        { selfol = value; }
+        else { selfol = ""; }
+        selfolc = FoldersListBox.SelectedItems.Count;
+>>>>>>> c362ddd271a67491c6af3f18ab3538e818cc187e
         AddSelFol();
     }
 
