@@ -30,10 +30,10 @@ partial class MainWindow
     {
         this.SVNFolderTextBox = new System.Windows.Forms.TextBox();
         this.BrowseButton = new System.Windows.Forms.Button();
-        this.FoldersListView = new System.Windows.Forms.ListView();
         this.label1 = new System.Windows.Forms.Label();
         this.label2 = new System.Windows.Forms.Label();
         this.UpdateButton = new System.Windows.Forms.Button();
+        this.FoldersListBox = new System.Windows.Forms.ListBox();
         this.SuspendLayout();
         //
         // SVNFolderTextBox
@@ -53,17 +53,6 @@ partial class MainWindow
         this.BrowseButton.Text = "Browse";
         this.BrowseButton.UseVisualStyleBackColor = true;
         this.BrowseButton.Click += new System.EventHandler( this.BrowseButton_Click );
-        //
-        // FoldersListView
-        //
-        this.FoldersListView.HideSelection = false;
-        this.FoldersListView.Location = new System.Drawing.Point( 12, 64 );
-        this.FoldersListView.Name = "FoldersListView";
-        this.FoldersListView.Size = new System.Drawing.Size( 237, 177 );
-        this.FoldersListView.TabIndex = 2;
-        this.FoldersListView.UseCompatibleStateImageBehavior = false;
-        this.FoldersListView.View = System.Windows.Forms.View.List;
-        this.FoldersListView.SelectedIndexChanged += new System.EventHandler( this.FoldersListView_SelectedIndexChanged );
         //
         // label1
         //
@@ -93,20 +82,31 @@ partial class MainWindow
         this.UpdateButton.UseVisualStyleBackColor = true;
         this.UpdateButton.Click += new System.EventHandler( this.UpdateButton_Click );
         //
+        // FoldersListBox
+        //
+        this.FoldersListBox.FormattingEnabled = true;
+        this.FoldersListBox.Location = new System.Drawing.Point( 12, 64 );
+        this.FoldersListBox.Name = "FoldersListBox";
+        this.FoldersListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+        this.FoldersListBox.Size = new System.Drawing.Size( 236, 173 );
+        this.FoldersListBox.TabIndex = 6;
+        this.FoldersListBox.SelectedIndexChanged += new System.EventHandler( this.FoldersListBox_SelectedIndexChanged );
+        //
         // MainWindow
         //
         this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         this.ClientSize = new System.Drawing.Size( 260, 277 );
+        this.Controls.Add( this.FoldersListBox );
         this.Controls.Add( this.UpdateButton );
         this.Controls.Add( this.label2 );
         this.Controls.Add( this.label1 );
-        this.Controls.Add( this.FoldersListView );
         this.Controls.Add( this.BrowseButton );
         this.Controls.Add( this.SVNFolderTextBox );
         this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
         this.Name = "MainWindow";
         this.Text = "SVN Updater";
+        this.FormClosing += new System.Windows.Forms.FormClosingEventHandler( this.MainWindow_FormClosing );
         this.ResumeLayout( false );
         this.PerformLayout();
 
@@ -116,10 +116,10 @@ partial class MainWindow
 
     private System.Windows.Forms.TextBox SVNFolderTextBox;
     private System.Windows.Forms.Button BrowseButton;
-    private System.Windows.Forms.ListView FoldersListView;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.Button UpdateButton;
+    private System.Windows.Forms.ListBox FoldersListBox;
 }
 }
 
