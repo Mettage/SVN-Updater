@@ -1,19 +1,19 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace SVN_Updater {
-public partial class MainWindow : Form
-{
-    static string currentDir = Environment.CurrentDirectory;
-    static string setting = currentDir + "\\setting.ini";
-    static string selected = currentDir + "\\selecteditems.txt";
-    static string svnfolder = "";
-    static bool svnfoldervalid = false;
-    int selfolc = 0;
-    int selfoli = 0;
-    static string selfol = "";
-    string[] fols = new string[20];
+    public partial class MainWindow : Form
+    {
+        static string currentDir = Environment.CurrentDirectory;
+        static string setting = currentDir + "\\setting.ini";
+        static string selected = currentDir + "\\selecteditems.txt";
+        static string updating = currentDir + "\\updating.bat";
+        static string svnfolder = "";
+        static int selfolderc = 0;
+        static string[] fols = new string[20];
+        static bool svnfoldervalid = false;
     public MainWindow()
     {
         Initialize();
@@ -98,17 +98,18 @@ public partial class MainWindow : Form
     {
         if ( File.Exists( selected ) )
         { File.Delete( selected ); }
+        if (File.Exists(updating))
+        { File.Delete( updating ); }
     }
 
-    void AddSelFol()
-    {        
-        StreamWriter addfolder = new StreamWriter( selected );
-        for (int i = 0; i < 20; i++)
+    void SelItems()
+    {
+        StreamWriter selFolder = new StreamWriter(selected);
+        foreach (var item in FoldersListBox.SelectedItems)
         {
-            addfolder.Write(i + " ");
-            addfolder.WriteLine(fols[i]);
+            selFolder.WriteLine(item);
         }
-        addfolder.Close();
+        selFolder.Close();
     }
 
     private void BrowseButton_Click( object sender, EventArgs e )
@@ -126,7 +127,35 @@ public partial class MainWindow : Form
 
     public void UpdateButton_Click( object sender, EventArgs e )
     {
-        MessageBox.Show( selfolc.ToString() );
+            SelItems();
+            selfolderc = FoldersListBox.SelectedItems.Count;
+
+            using (StreamReader folders = new StreamReader(selected))
+            {
+                string line = folders.ReadLine();
+                int j = 0;
+                while (line != null)
+                {
+                    fols[j] = line;
+                    line = folders.ReadLine();
+                    j++;
+                }
+                folders.Close();
+            }
+            using (StreamWriter command = new StreamWriter(updating))
+            {
+                command.WriteLine($"@echo off");
+                command.WriteLine($"cd " + currentDir);
+                for (int i = 0; i < selfolderc; i++)
+                {
+                    command.WriteLine($"svn cleanup " + fols[i]);
+                    command.WriteLine($"svn update " + fols[i]);
+                }
+                command.Close();
+            }
+            Process upd = new Process();
+            upd.StartInfo.FileName = updating;
+            upd.Start();
     }
 
     private void SVNFolderTextBox_TextChanged( object sender, EventArgs e )
@@ -135,17 +164,6 @@ public partial class MainWindow : Form
         Set();
         CheckPath();
         ListFolders();
-    }
-
-    private void FoldersListBox_SelectedIndexChanged( object sender, EventArgs e )
-    {
-        if ( FoldersListBox.SelectedItems.Count != 0 )
-        { selfol = FoldersListBox.SelectedItem.ToString(); }
-        else { selfol = ""; }
-        selfolc = FoldersListBox.SelectedItems.Count;
-        selfoli = FoldersListBox.SelectedIndex;
-        fols[selfoli] = selfol;
-        AddSelFol();
     }
 
     private void MainWindow_FormClosing( object sender, FormClosingEventArgs e )
