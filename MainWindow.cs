@@ -158,6 +158,11 @@ public partial class MainWindow : Form
         Process upd = new Process();
         upd.StartInfo.FileName = updating;
         upd.Start();
+        UpdateButton.Enabled = false;
+        BrowseButton.Enabled = false;
+        upd.WaitForExit();
+        UpdateButton.Enabled = true;
+        BrowseButton.Enabled = true;
     }
 
     private void SVNFolderTextBox_TextChanged( object sender, EventArgs e )
