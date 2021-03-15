@@ -4,16 +4,16 @@ using System.Windows.Forms;
 using System.Diagnostics;
 
 namespace SVN_Updater {
-    public partial class MainWindow : Form
-    {
-        static string currentDir = Environment.CurrentDirectory;
-        static string setting = currentDir + "\\setting.ini";
-        static string selected = currentDir + "\\selecteditems.txt";
-        static string updating = currentDir + "\\updating.bat";
-        static string svnfolder = "";
-        static int selfolderc = 0;
-        static string[] fols = new string[20];
-        static bool svnfoldervalid = false;
+public partial class MainWindow : Form
+{
+    static string currentDir = Environment.CurrentDirectory;
+    static string setting = currentDir + "\\setting.ini";
+    static string selected = currentDir + "\\selecteditems.txt";
+    static string updating = currentDir + "\\updating.bat";
+    static string svnfolder = "";
+    static int selfolderc = 0;
+    static string[] fols = new string[20];
+    static bool svnfoldervalid = false;
     public MainWindow()
     {
         Initialize();
@@ -98,16 +98,16 @@ namespace SVN_Updater {
     {
         if ( File.Exists( selected ) )
         { File.Delete( selected ); }
-        if (File.Exists(updating))
+        if ( File.Exists( updating ) )
         { File.Delete( updating ); }
     }
 
     void SelItems()
     {
-        StreamWriter selFolder = new StreamWriter(selected);
-        foreach (var item in FoldersListBox.SelectedItems)
+        StreamWriter selFolder = new StreamWriter( selected );
+        foreach ( var item in FoldersListBox.SelectedItems )
         {
-            selFolder.WriteLine(item);
+            selFolder.WriteLine( item );
         }
         selFolder.Close();
     }
@@ -127,35 +127,37 @@ namespace SVN_Updater {
 
     public void UpdateButton_Click( object sender, EventArgs e )
     {
-            SelItems();
-            selfolderc = FoldersListBox.SelectedItems.Count;
-
-            using (StreamReader folders = new StreamReader(selected))
+        SelItems();
+        selfolderc = FoldersListBox.SelectedItems.Count;
+        string discletter = svnfolder.Substring( 0, 1 );
+        using ( StreamReader folders = new StreamReader( selected ) )
+        {
+            string line = folders.ReadLine();
+            int j = 0;
+            while ( line != null )
             {
-                string line = folders.ReadLine();
-                int j = 0;
-                while (line != null)
-                {
-                    fols[j] = line;
-                    line = folders.ReadLine();
-                    j++;
-                }
-                folders.Close();
+                fols[j] = line;
+                line = folders.ReadLine();
+                j++;
             }
-            using (StreamWriter command = new StreamWriter(updating))
+            folders.Close();
+        }
+        using ( StreamWriter command = new StreamWriter( updating ) )
+        {
+            command.WriteLine( $"@echo off" );
+            command.WriteLine( discletter + $":" );
+            command.WriteLine( $"cd " + svnfolder );
+            for ( int i = 0; i < selfolderc; i++ )
             {
-                command.WriteLine($"@echo off");
-                command.WriteLine($"cd " + currentDir);
-                for (int i = 0; i < selfolderc; i++)
-                {
-                    command.WriteLine($"svn cleanup " + fols[i]);
-                    command.WriteLine($"svn update " + fols[i]);
-                }
-                command.Close();
+                command.WriteLine( $"svn cleanup " + fols[i] );
+                command.WriteLine( $"svn update " + fols[i] );
             }
-            Process upd = new Process();
-            upd.StartInfo.FileName = updating;
-            upd.Start();
+            //command.WriteLine( $"pause" );
+            command.Close();
+        }
+        Process upd = new Process();
+        upd.StartInfo.FileName = updating;
+        upd.Start();
     }
 
     private void SVNFolderTextBox_TextChanged( object sender, EventArgs e )
