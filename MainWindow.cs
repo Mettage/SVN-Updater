@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace SVN_Updater {
 public partial class MainWindow : Form
@@ -112,22 +113,19 @@ public partial class MainWindow : Form
         selFolder.Close();
     }
 
-    private void BrowseButton_Click( object sender, EventArgs e )
+    private async void Update()
     {
-        FolderBrowserDialog SVNFolder = new FolderBrowserDialog();
-        SVNFolder.SelectedPath = svnfolder;
-        SVNFolder.Description = "Choose a folder where are stored SVN repositories";
-        if ( SVNFolder.ShowDialog() == DialogResult.OK )
-        {
-            SVNFolderTextBox.Text = SVNFolder.SelectedPath;
-            svnfolder = SVNFolder.SelectedPath;
-            Set();
-        }
+        Task<int> svnu = null;
+        svnu = SVNUpdate();
+        UpdateButton.Enabled = false;
+        BrowseButton.Enabled = false;
+        await svnu;
+        UpdateButton.Enabled = true;
+        BrowseButton.Enabled = true;
     }
 
-    public void UpdateButton_Click( object sender, EventArgs e )
+    private Task<int> SVNUpdate()
     {
-        SelItems();
         selfolderc = FoldersListBox.SelectedItems.Count;
         string discletter = svnfolder.Substring( 0, 1 );
         using ( StreamReader folders = new StreamReader( selected ) )
@@ -155,14 +153,44 @@ public partial class MainWindow : Form
             //command.WriteLine( $"pause" );
             command.Close();
         }
-        Process upd = new Process();
-        upd.StartInfo.FileName = updating;
-        upd.Start();
-        UpdateButton.Enabled = false;
-        BrowseButton.Enabled = false;
-        upd.WaitForExit();
-        UpdateButton.Enabled = true;
-        BrowseButton.Enabled = true;
+        return RunProcessAsync( updating );
+    }
+
+    private Task<int> RunProcessAsync( string fileName )
+    {
+        var tcs = new TaskCompletionSource<int>();
+        var process = new Process
+        {
+            StartInfo = { FileName = fileName },
+            EnableRaisingEvents = true
+        };
+        process.Exited += ( sender, args ) =>
+        {
+            tcs.SetResult( process.ExitCode );
+            process.Dispose();
+        };
+
+        process.Start();
+        return tcs.Task;
+    }
+
+    private void BrowseButton_Click( object sender, EventArgs e )
+    {
+        FolderBrowserDialog SVNFolder = new FolderBrowserDialog();
+        SVNFolder.SelectedPath = svnfolder;
+        SVNFolder.Description = "Choose a folder where are stored SVN repositories";
+        if ( SVNFolder.ShowDialog() == DialogResult.OK )
+        {
+            SVNFolderTextBox.Text = SVNFolder.SelectedPath;
+            svnfolder = SVNFolder.SelectedPath;
+            Set();
+        }
+    }
+
+    public void UpdateButton_Click( object sender, EventArgs e )
+    {
+        SelItems();
+        Update();
     }
 
     private void SVNFolderTextBox_TextChanged( object sender, EventArgs e )
