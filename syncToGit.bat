@@ -1,1 +1,0 @@
-robocopy C:\Users\Bagira\source\repos\SVN_Updater D:\GitHub\SVN_Updater
