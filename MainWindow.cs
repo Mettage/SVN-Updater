@@ -22,6 +22,7 @@ public partial class MainWindow : Form
         CheckPath();
         ListFolders();
         SVNFolderTextBox.Text = svnfolder;
+        UpdateButton.Enabled = false;
     }
 
     void Initialize()
@@ -64,7 +65,6 @@ public partial class MainWindow : Form
     {
         if ( Directory.Exists( svnfolder ) ) { svnfoldervalid = true; }
         else { svnfoldervalid = false; }
-        StatusValid();
     }
 
     void StatusValid()
@@ -113,7 +113,7 @@ public partial class MainWindow : Form
         selFolder.Close();
     }
 
-    private async void Update()
+    private async void Updating()
     {
         Task<int> svnu = null;
         svnu = SVNUpdate();
@@ -150,7 +150,8 @@ public partial class MainWindow : Form
                 command.WriteLine( $"svn cleanup " + fols[i] );
                 command.WriteLine( $"svn update " + fols[i] );
             }
-            //command.WriteLine( $"pause" );
+            if (PauseCheckBox.Checked)
+            { command.WriteLine( $"pause" ); }
             command.Close();
         }
         return RunProcessAsync( updating );
@@ -190,7 +191,7 @@ public partial class MainWindow : Form
     public void UpdateButton_Click( object sender, EventArgs e )
     {
         SelItems();
-        Update();
+        Updating();
     }
 
     private void SVNFolderTextBox_TextChanged( object sender, EventArgs e )
@@ -205,5 +206,13 @@ public partial class MainWindow : Form
     {
         Remove();
     }
+
+    private void FoldersListBox_SelectedIndexChanged(object sender, EventArgs e)
+    {
+            if (FoldersListBox.SelectedItems.Count != 0)
+            { UpdateButton.Enabled = true; }
+            else
+            { UpdateButton.Enabled = false; }
+        }
 }
 }
