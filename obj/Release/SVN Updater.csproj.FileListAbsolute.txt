@@ -1,0 +1,9 @@
+E:\Dokumenty\Programovanie\GitHub\SVN_Updater\bin\Release\SVN Updater.exe.config
+E:\Dokumenty\Programovanie\GitHub\SVN_Updater\bin\Release\SVN Updater.exe
+E:\Dokumenty\Programovanie\GitHub\SVN_Updater\bin\Release\SVN Updater.pdb
+E:\Dokumenty\Programovanie\GitHub\SVN_Updater\obj\Release\SVN_Updater.MainWindow.resources
+E:\Dokumenty\Programovanie\GitHub\SVN_Updater\obj\Release\SVN_Updater.Properties.Resources.resources
+E:\Dokumenty\Programovanie\GitHub\SVN_Updater\obj\Release\SVN Updater.csproj.GenerateResource.cache
+E:\Dokumenty\Programovanie\GitHub\SVN_Updater\obj\Release\SVN Updater.csproj.CoreCompileInputs.cache
+E:\Dokumenty\Programovanie\GitHub\SVN_Updater\obj\Release\SVN Updater.exe
+E:\Dokumenty\Programovanie\GitHub\SVN_Updater\obj\Release\SVN Updater.pdb
